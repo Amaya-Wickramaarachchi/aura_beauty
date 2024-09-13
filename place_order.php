@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_email'])) {
     exit();
 }
 
-// Database connection (same as before)
 $host = 'localhost';
 $db = 'aura_beauty';
 $user = 'root';
@@ -26,17 +25,14 @@ try {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
 
-// Retrieve posted data
 $shippingAddress = $_POST['address'] ?? '';
 $contactNumber = $_POST['contact'] ?? '';
 $selectedItems = $_POST['selected_items'] ?? '';
 $totalPrice = $_POST['total_price'] ?? 0;
 
-// Check if selected items are present
 $itemIds = explode(',', $selectedItems);
 $checkoutItems = [];
 
-// Fetch the details of the selected items from the database
 if (!empty($itemIds[0])) { // Check if there's at least one item
     $placeholders = str_repeat('?,', count($itemIds) - 1) . '?';
     $stmt = $pdo->prepare("SELECT p.name, p.price, c.quantity FROM cart c JOIN products p ON c.product_id = p.id WHERE c.id IN ($placeholders) AND c.user_id = ?");
@@ -44,7 +40,7 @@ if (!empty($itemIds[0])) { // Check if there's at least one item
     $checkoutItems = $stmt->fetchAll();
 }
 
-// Generate a unique tracking number
+//tracking number generating
 $trackingNumber = strtoupper(uniqid('TRACK-'));
 
 // Insert order into the database
