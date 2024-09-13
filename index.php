@@ -525,7 +525,7 @@ include 'header.php';
         }
     </script>
 
-    <!-- Include Footer -->
+  
     <?php include 'footer.php'; ?>
 </body>
 </html>
