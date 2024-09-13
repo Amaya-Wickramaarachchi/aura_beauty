@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connection.php'; // Include the database connection file
+require 'connection.php'; 
 
 if (!isset($_SESSION['user_email'])) {
     header('Location: login.php');
@@ -15,25 +15,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $conn->begin_transaction();
 
     try {
-        // Delete associated orders first
+       
         $stmt = $conn->prepare('DELETE FROM orders WHERE user_email = ?');
-        $stmt->bind_param('s', $email); // Bind the email parameter
-        $stmt->execute(); // Execute the statement
+        $stmt->bind_param('s', $email); 
+        $stmt->execute(); 
 
-        // Delete user from the database
+      
         $stmt = $conn->prepare('DELETE FROM user WHERE email = ?');
-        $stmt->bind_param('s', $email); // Bind the email parameter
-        $stmt->execute(); // Execute the statement
+        $stmt->bind_param('s', $email); 
+        $stmt->execute(); 
 
-        // Commit the transaction
         $conn->commit();
 
-        // Destroy session and redirect to the homepage
+        
         session_destroy();
         header('Location: index.php');
         exit();
     } catch (Exception $e) {
-        // Rollback the transaction if anything goes wrong
+        
         $conn->rollback();
         echo "Failed to delete profile: " . $e->getMessage();
     }
