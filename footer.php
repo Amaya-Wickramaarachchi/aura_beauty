@@ -71,10 +71,10 @@
         .social-icons {
             margin-bottom: 30px;
             display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
+            justify-content: center; 
+            align-items: center; 
             gap: 15px; 
-            flex-basis: 100%; /* Ensure it takes full width */
+            flex-basis: 100%;
         }
 
         .social-icons a {
@@ -87,7 +87,7 @@
             color: #f0936;
         }
 
-        /* Footer Bottom */
+        
         .footer-bottom {
             font-size: 14px;
         }
@@ -106,7 +106,7 @@
             color: #f0936;
         }
 
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
             .footer-container {
                 flex-direction: column;
