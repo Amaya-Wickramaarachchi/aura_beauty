@@ -107,7 +107,6 @@
             display: block; 
         }
 
-        /* Media Queries for Mobile Responsiveness */
         @media (max-width: 768px) {
             body{
                 margin-top:200px;
@@ -209,20 +208,16 @@
     
     <script>
         function showNextQuestion(current) {
-            // Hide current question
             document.getElementById('question' + current).classList.remove('active');
-            // Show next question
             document.getElementById('question' + (current + 1)).classList.add('active');
         }
 
         function showResults() {
-            // Hide all questions
             const questions = document.querySelectorAll('.question');
             questions.forEach(question => {
                 question.classList.remove('active');
             });
 
-            // Get values from the quiz
             const skinFeel = document.getElementById('skinFeel').value;
             const breakouts = document.getElementById('breakouts').value;
             const sensitivity = document.getElementById('sensitivity').value;
