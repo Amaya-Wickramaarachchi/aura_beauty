@@ -246,7 +246,7 @@
             // Display results
             document.getElementById('skinTypeResult').innerText = skinType;
             const productDiv = document.getElementById('productRecommendations');
-            productDiv.innerHTML = ''; // Clear previous results
+            productDiv.innerHTML = '';
             products.forEach(product => {
                 const productCard = document.createElement('div');
                 productCard.innerText = product;
@@ -254,7 +254,6 @@
                 productDiv.appendChild(productCard);
             });
 
-            // Show the result section
             document.getElementById('result').style.display = 'block';
         }
     </script>
