@@ -2,7 +2,6 @@
 session_start();
 $is_logged_in = isset($_SESSION['user_email']);
 
-// Database connection setup
 $host = 'localhost';
 $db = 'aura_beauty';
 $user = 'root';
@@ -22,10 +21,8 @@ try {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
 
-// Get product ID from URL
 $product_id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
-// Display message if present in session
 $message = '';
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
@@ -33,7 +30,6 @@ if (isset($_SESSION['message'])) {
 }
 
 if ($product_id) {
-    // Fetch product data
     $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
     $stmt->execute([$product_id]);
     $product = $stmt->fetch();
@@ -51,7 +47,6 @@ $product_name = htmlspecialchars($product['name']);
 $product_price = htmlspecialchars($product['price']);
 $product_image = htmlspecialchars($product['image_url']);
 
-// Handle review form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['review_text'], $_POST['rating'])) {
     if ($is_logged_in) {
         $review_text = htmlspecialchars($_POST['review_text']);
@@ -433,7 +428,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['review_text'], $_POST
 
             star.addEventListener('click', () => {
                 selectedRating = star.dataset.value;
-                ratingInput.value = selectedRating; // Store selected rating
+                ratingInput.value = selectedRating;
             });
         });
 
