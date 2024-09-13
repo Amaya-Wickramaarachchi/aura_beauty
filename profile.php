@@ -2,13 +2,11 @@
 session_start();
 require 'connection.php';
 
-// Redirect to login if not authenticated
 if (!isset($_SESSION['user_email'])) {
     header('Location: login.php'); 
     exit();
 }
 
-// Database connection settings
 $host = 'localhost';
 $db = 'aura_beauty';
 $user = 'root';
@@ -22,23 +20,19 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
 
-// Establish database connection
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (\PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
 
-// Fetch user details from the database
 $email = $_SESSION['user_email'];
 $stmt = $pdo->prepare('SELECT first_name, last_name, birthday, gender, contact_number, address FROM user WHERE email = ?');
 $stmt->execute([$email]);
 $user = $stmt->fetch();
 
-// Initialize message variable
 $message = '';
 
-// Handle profile update form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $first_name = trim($_POST['first_name']);
     $last_name = trim($_POST['last_name']);
@@ -47,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $contact_number = trim($_POST['contact_number']);
     $address = trim($_POST['address']);
 
-    // Update user profile in the database
     $update_stmt = $pdo->prepare('UPDATE user SET first_name = ?, last_name = ?, birthday = ?, gender = ?, contact_number = ?, address = ? WHERE email = ?');
     
     if ($update_stmt->execute([$first_name, $last_name, $birthday, $gender, $contact_number, $address, $email])) {
@@ -57,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     }
 }
 
-// Handle account deletion
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_account'])) {
     $delete_stmt = $pdo->prepare('DELETE FROM user WHERE email = ?');
     if ($delete_stmt->execute([$email])) {
@@ -69,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_account'])) {
     }
 }
 
-// Fetch user's order history
 $order_stmt = $pdo->prepare('SELECT order_id, tracking_number, shipping_address, contact_number, total_price, created_at FROM orders WHERE user_email = ? ORDER BY created_at DESC');
 $order_stmt->execute([$email]);
 $orders = $order_stmt->fetchAll();
