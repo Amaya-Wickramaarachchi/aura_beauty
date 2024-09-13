@@ -1,28 +1,27 @@
 <?php
 session_start();
-require 'connection.php'; // Include the database connection file
+require 'connection.php'; 
 
-$error_message = ''; // Initialize error message variable
+$error_message = ''; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Validate email format
+    // Validate email 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error_message = 'Invalid email format.';
     } else {
-        // Prepare and execute the SQL statement
+       
         $stmt = $conn->prepare('SELECT * FROM user WHERE email = ?');
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        // Check if user exists and passwords match (no hashing for learning purposes)
         if ($user) {
-            if ($user['password'] == $password) { // Check password (assuming no hashing)
-                // User authenticated
+            if ($user['password'] == $password) { 
+                
                 $_SESSION['user_email'] = $user['email'];
                 header('Location: index.php');
                 exit();
@@ -35,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error_message = 'No account found with that email.';
         }
 
-        $stmt->close(); // Close the statement
+        $stmt->close();
     }
 }
 ?>
