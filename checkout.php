@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_email'])) {
     exit();
 }
 
-// Database connection (same as before)
+// Database connection
 $host = 'localhost';
 $db = 'aura_beauty';
 $user = 'root';
@@ -34,12 +34,10 @@ if (empty($selectedItems)) {
     exit();
 }
 
-// Convert the selected items into an array
 $itemIds = explode(',', $selectedItems);
 
-// Fetch the details of the selected items from the database
 if (count($itemIds) > 0) {
-    $placeholders = str_repeat('?,', count($itemIds) - 1) . '?'; // To dynamically add placeholders for the selected items
+    $placeholders = str_repeat('?,', count($itemIds) - 1) . '?'; 
     $stmt = $pdo->prepare("SELECT p.name, p.price, c.quantity FROM cart c JOIN products p ON c.product_id = p.id WHERE c.id IN ($placeholders) AND c.user_id = ?");
     $stmt->execute(array_merge($itemIds, [$_SESSION['user_email']]));
     $checkoutItems = $stmt->fetchAll();
