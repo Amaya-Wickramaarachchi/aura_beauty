@@ -1,8 +1,6 @@
 <?php
-// Start the session (if needed)
 session_start();
 
-// Include header file
 include 'header.php';
 ?>
 
