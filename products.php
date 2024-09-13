@@ -35,7 +35,6 @@
             border-bottom: 2px solid #e0e0e0;
         }
 
-        /* Tab Styles */
         .tab {
             margin: 0;
             padding: 10px 20px;
@@ -49,18 +48,17 @@
             margin: 0 15px;
         }
 
-        /* Active Tab Style */
+        
         .tab.active {
             border-bottom: 2px solid #6f0936;
             color: #6f0936;
         }
 
-        /* Hover Effect */
+        
         .tab:hover:not(.active) {
             color: #9e3b68;
         }
 
-        /* Tab Content */
         .tab-content {
             display: none;
             margin-top: 20px;
@@ -147,16 +145,15 @@
             padding: 20px;
             margin-bottom: 30px;
     }
-    /* Media Queries for Responsiveness */
     @media (max-width: 1200px) {
         .product-card {
-            width: 30%; /* 3 cards in a row */
+            width: 30%; 
         }
     }
 
     @media (max-width: 992px) {
         .product-card {
-            width: 45%; /* 2 cards in a row */
+            width: 45%; 
         }
 
         .tabs {
@@ -174,12 +171,12 @@
         }
 
         .product-card {
-            width: 90%; /* 1 card in a row */
-            margin: 10px 0; /* Reduced margin */
+            width: 90%; 
+            margin: 10px 0;
         }
 
         .product-card img {
-            height: auto; /* Maintain aspect ratio */
+            height: auto;
         }
 
         .product-card h3 {
@@ -341,19 +338,16 @@
 
     <script>
         function openTab(event, tabName) {
-            // Hide all tab contents
             var tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(function(content) {
                 content.classList.remove('active');
             });
 
-            // Deactivate all tabs
             var tabs = document.querySelectorAll('.tab');
             tabs.forEach(function(tab) {
                 tab.classList.remove('active');
             });
 
-            // Show the selected tab content and activate the tab
             document.getElementById(tabName).classList.add('active');
             event.currentTarget.classList.add('active');
         }
