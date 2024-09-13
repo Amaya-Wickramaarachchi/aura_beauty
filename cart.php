@@ -29,7 +29,7 @@ try {
 // Get user's email
 $user_email = $_SESSION['user_email'] ?? null;
 
-// Fetch cart items for the user
+// Cart items
 $cartItems = [];
 if ($user_email) {
     $stmt = $pdo->prepare('SELECT c.id, p.name, p.price, c.quantity FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = ?');
@@ -37,7 +37,7 @@ if ($user_email) {
     $cartItems = $stmt->fetchAll();
 }
 
-// Function to calculate total price
+// Calculate total price
 function calculateTotal($items) {
     $total = 0;
     foreach ($items as $item) {
@@ -208,10 +208,10 @@ function prepareSelectedItems(event) {
     const selectedIds = Array.from(checkboxes).map(checkbox => checkbox.value);
 
     if (selectedIds.length === 0) {
-        event.preventDefault(); // Prevent form submission if no items are selected
+        event.preventDefault(); 
         alert('No items selected for checkout!');
     } else {
-        document.getElementById('selectedItems').value = selectedIds.join(','); // Set the selected item IDs
+        document.getElementById('selectedItems').value = selectedIds.join(','); 
     }
 }
 
@@ -226,7 +226,7 @@ function removeFromCart(itemId) {
             const row = document.getElementById(`item-${itemId}`);
             if (row) {
                 row.remove();
-                updateTotal(); // Recalculate the total
+                updateTotal(); 
             }
         } else {
             alert('Error removing item.');
