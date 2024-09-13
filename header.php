@@ -138,7 +138,7 @@
 
     .search-bar input[type="text"] {
         width: 200px;
-        padding: 8px 40px 8px 10px; /* Adjust padding for space for the icon */
+        padding: 8px 40px 8px 10px;
         color: #6f0936;
         outline: none;
         font-size: 14px;
@@ -266,7 +266,6 @@ function performSearch() {
     const query = document.getElementById('search-query').value.trim();
 
     if (query) {
-        // Redirect to search.php with the search query as a GET parameter
         window.location.href = `search.php?q=${encodeURIComponent(query)}`;
     } else {
         alert('Please enter a product name.');
